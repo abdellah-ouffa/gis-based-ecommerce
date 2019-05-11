@@ -6,10 +6,10 @@
                 <a href="#"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="index.html">Version 1</a>
+                        <a href="index.html">Customer area</a>
                     </li>
                     <li>
-                        <a href="dashboard2.html">Version 2</a>
+                        <a href="dashboard2.html">Products</a>
                     </li>
                 </ul>
             </li>

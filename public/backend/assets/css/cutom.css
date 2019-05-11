@@ -1,0 +1,11 @@
+.form-remove {
+	display: inline-block;
+}
+
+.swal2-popup {
+    font-size: 1.4rem !important;
+}
+
+.tools .btn {
+    margin-top: -7px !important;
+}

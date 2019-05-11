@@ -39,4 +39,22 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetail::class, 'product_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'model_id')->where('type', '=', 'product');
+    }    
+
+    public function getImagePathAttribute()
+    {
+        return "storage/" . ($this->images()->first()->path ?? "product-images/default-product-image.jpg"); 
+    }
+
+    public function getRelatedProductsAttribute()
+    {
+        return $this->category->products()->where('id', '<>', $this->id)->get();
+    }
 }

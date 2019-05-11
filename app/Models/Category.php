@@ -25,4 +25,24 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'model_id')->where('type', '=', 'category');
+    }
+
+    public function getImagePathAttribute()
+    {
+        return "storage/" . ($this->images()->first()->path ?? "category-images/default-category-image.jpg"); 
+    }
+
+    public function getCountProductsAttribute()
+    {
+        return $this->products()->count(); 
+    }
 }
+
+

@@ -10,7 +10,17 @@
             <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
             <li><a href="#"> <span class="icon s7-config"></span>Settings</a></li>
             <li><a href="#"> <span class="icon s7-help1"></span>Help</a></li>
-            <li><a href="#"> <span class="icon s7-power"></span>Sign Out</a></li>
+            <li><a  class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }} <span class="icon s7-power"></span></a>
+
+                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+
+
+                                      </li>
           </ul>
         </li>
       </ul>

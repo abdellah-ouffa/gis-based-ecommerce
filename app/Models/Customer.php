@@ -23,6 +23,8 @@ class Customer extends Model
      */
     protected $fillable = ['user_id', 'tel', 'gender', 'birth_date', 'created_at', 'updated_at'];
 
+    protected $dates = ['birth_date'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -45,5 +47,10 @@ class Customer extends Model
     public function orders()
     {
         return $this->hasMany(Order::class, 'customer_id');
+    }
+
+    public function getBirthDateFormattedAttribute()
+    {
+        return date('d/m/Y', strtotime($this->birth_date));
     }
 }

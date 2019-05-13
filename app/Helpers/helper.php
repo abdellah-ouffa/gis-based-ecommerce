@@ -53,3 +53,10 @@
 			return Carbon::parse($date)->format($format);
 		}
 	}
+
+	function existsOnBasket($productId) {
+		$exists = Cart::search(function ($cartItem, $rowId) use ($productId) {
+	        return $cartItem->id === $productId;
+	    });
+	    return $exists->isNotEmpty();
+	}

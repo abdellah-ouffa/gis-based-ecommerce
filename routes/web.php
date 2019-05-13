@@ -34,3 +34,22 @@ Route::post('login', 'Shared\AuthController@frontAuthenticate')->name('front.aut
 Route::get('/password/{password}', function ($password) {
 	return bcrypt($password);
 });
+Route::get('/test', function () {
+	return dump(\Cart::content());
+});
+Route::get('/delete', function () {
+	Cart::destroy();
+});
+
+
+// Routes for manage cart products
+Route::get('cart', 'Front\CartController@index')->name('cart.index');
+Route::post('cart', 'Front\CartController@store')->name('cart.store');
+Route::put('cart', 'Front\CartController@update')->name('cart.update');
+Route::delete('cart/{id}', 'Front\CartController@destroy')->name('cart.destroy');
+// Route::post('checkout', 'Backend\OrderController@checkout')->name('order.checkout');
+Route::get('checkout', 'Backend\CartController@checkout')->name('cart.checkout');
+// // Routes for order resource
+// Route::resource('order', 'Backend\OrderController');
+// // Default route
+// Route::get('/', 'Backend\DashboardController@index')->name('customer.dashboard');

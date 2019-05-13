@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/plugins.css') }}">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
+    {{-- custom css map --}}
+    <link rel="stylesheet" href="{{ asset('front/assets/API/css/custom.css') }}">
+    {{-- custom css map --}}
+
     <!-- Modernizer JS -->
     <script src="{{ asset('front/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
     @yield('custom-css')
@@ -48,5 +52,7 @@
 <script src="{{ asset('front/assets/js/ajax-mail.js') }}"></script>
 <!-- Main JS -->
 <script src="{{ asset('front/assets/js/main.js') }}"></script>
+{{-- Google map js --}}
+@yield('custom-javascript')
 </body>
 </html>

@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="team-content text-center">
-                        <h4>Mr.Abdellah Ouffa</h4>
+                        <h4>{{ABOUT_PAGE_MANAGER_NAME}}</h4>
                         <span>Manager </span>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="team-content text-center">
-                        <h4>Mr.Abdellah Ouffa</h4>
+                        <h4>{{ABOUT_PAGE_DEVELOPER_NAME}}</h4>
                         <span>Developer </span>
                     </div>
                 </div>

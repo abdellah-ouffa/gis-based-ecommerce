@@ -40,7 +40,7 @@ class PageController extends Controller
 
     public function searchProducts(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $query = '%' . $request->get('query') . '%';
         $products = Product::where('name', 'like', $query)

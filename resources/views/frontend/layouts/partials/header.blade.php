@@ -10,7 +10,7 @@
                         <a href="#">USD </a>
                     </div>
                     <div class="same-language-currency">
-                        <p>Call Us +212 (6) 692 103 15</p>
+                        <p>Call Us {{CONTACT_PAGE_PHONE_NUMBER}}</p>
                     </div>
                 </div>
                 <div class="header-right-wrap">
@@ -34,10 +34,12 @@
                         </div>
                     </div>
                     <div class="same-style cart-wrap">
-                        <button class="icon-cart">
-                            <i class="pe-7s-shopbag"></i>
-                            <span class="count-style">02</span>
-                        </button>
+                        <form action="{{ route('cart.index') }}">
+                            <button class="icon-cart">
+                                <i class="pe-7s-shopbag"></i>
+                                <span class="count-style">{{ count(Cart::content()) }}</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

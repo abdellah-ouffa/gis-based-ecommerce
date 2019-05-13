@@ -43,6 +43,10 @@ class Category extends Model
     {
         return $this->products()->count(); 
     }
+
+    public function getCategoryProducdtsAttribute(){
+        return $this->products->get();
+    }
 }
 
 

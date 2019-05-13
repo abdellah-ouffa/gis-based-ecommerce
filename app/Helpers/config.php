@@ -24,4 +24,8 @@ define('HOME_SLIDER', [
 
 define('HOME_PRODUCT_LENGTH', 8);
 define('ALL_PRODUCTS_PRODUCTS_LENGTH', 9);
-define('CONTACT_PAGE_PHONE_NUMBER', '09938477R95678');
+define('CONTACT_PAGE_PHONE_NUMBER', '+212 6 692 103 15');
+define('ABOUT_PAGE_MANAGER_NAME', 'Mr.Abdellah Ouffa');
+define('ABOUT_PAGE_DEVELOPER_NAME', 'Mr.Abdellah Ouffa');
+define('CONTACT_PAGE_COMPANY_NAME', 'E-commerce company');
+define('CONTACT_PAGE_MANAGER_EMAIL','ouffaabdellah@gmail.com');

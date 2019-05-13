@@ -42,27 +42,40 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="product-details-content ml-70">
-                    <h2>{{ $product->name }}</h2>
-                    <div class="product-details-price">
-                        <span>{{ $product->price }}</span>
-                    </div>
-                    <p>{{ $product->description }}</p>
-                    <div class="pro-details-quality">
-                        <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
+                <form id="cart-form" action="{{ route('cart.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" value="{{ $product->id }}" name="product_id">
+                    <div class="product-details-content ml-70">
+                        <h2>{{ $product->name }}</h2>
+                        <div class="product-details-price">
+                            <span>{{ $product->price }}</span>
                         </div>
-                        <div class="pro-details-cart btn-hover">
-                            <a href="#">Add To Cart</a>
+                        <p>{{ $product->description }}</p>
+                        <div class="pro-details-quality">
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" type="text" name="qte" value="1">
+                                @if ($errors->has('qte'))
+                                    <span class="text-danger">
+                                        {{ $errors->first('qte') }}
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="pro-details-cart btn-hover">
+                                @if(existsOnBasket($product->id))
+                                    <a href="#" disabled>Already Added</a>
+                                @else
+                                    <a onclick="event.preventDefault(); document.getElementById('cart-form').submit();">Add to cart</a>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="pro-details-meta">
+                            <span>Categories :</span>
+                            <ul>
+                                <li><a href="#">{{ $product->category->name }}</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="pro-details-meta">
-                        <span>Categories :</span>
-                        <ul>
-                            <li><a href="#">{{ $product->category->name }}</a></li>
-                        </ul>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

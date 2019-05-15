@@ -15,7 +15,7 @@
 <div class="checkout-area pb-80 pt-100">
     <div class="container">
         <div class="row">
-            <div class="ml-auto mr-auto col-lg-9">
+            <div class="ml-auto mr-auto col-lg-12">
                 <div class="checkout-wrapper">
                     <div id="faq" class="panel-group">
                         <div class="panel panel-default single-my-account">
@@ -131,34 +131,20 @@
                                         </div>
                                         <div class="entries-wrapper">
                                             @forelse ($customer->addresses as $address)
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <div class="entries-info text-center">
-                                                        <p>{{ $address->address }}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <div class="entries-edit-delete text-center">
-                                                        <a class="edit" href="#" data-toggle="modal" data-target="#address-{{ $address->id }}">Edit</a>
-                                                        <a href="#">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="address-{{ $address->id }}" tabindex="-1" role="dialog">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            Edit Address
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                                                        </div>
-                                                        <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                                                        <div class="entries-info text-center">
                                                             <p>{{ $address->address }}</p>
                                                         </div>
                                                     </div>
+                                                    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                                                        <div class="entries-edit-delete text-center">
+                                                            <a class="edit show-modal-edit-address" href="#" data-target-full-address="address-{{ $address->id }}">Edit</a>
+                                                            <a href="#">Delete</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <!-- Modal end -->
+                                                <div id="address-{{ $address->id }}" data-id="{{ $address->id }}" data-lng="{{ $address->lng }}" data-lat="{{ $address->lat }}" data-address="{{ $address->address }}"></div>
                                             @empty
                                                 <h4 class="text-center">No address found</h4>
                                             @endforelse
@@ -181,4 +167,139 @@
         </div>
     </div>
 </div>
+<!-- Address Modal -->
+<div class="modal fade" id="modal-address-map" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Address
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" id="search-address-input" class="form-control" placeholder="Search for ur address ..">
+                </div>
+                <br>
+                <div id="address-map" style="width: 100%; height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+@endsection
+
+@section('custom-css')
+    <style>
+        .pac-container {
+            background-color: #FFF;
+            z-index: 20;
+            position: fixed;
+            display: inline-block;
+            float: left;
+        }
+        .modal{
+            z-index: 20;   
+        }
+        .modal-backdrop{
+            z-index: 10;        
+        }​
+    </style>
+@endsection
+
+@section('custom-javascript')
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDebAMQ2oe6eiBRR5YWBJqKY5KyQxsSbKc&libraries=places" async defer></script>
+    <script type="text/javascript">   
+        $(document).ready(function () {
+            // Events
+            $('.show-modal-edit-address').click(function (event) {
+                event.preventDefault();
+                var fullAddress = $('#' + $(this).data('target-full-address'));
+                var id = $(fullAddress).data('id');
+                var lng = $(fullAddress).data('lng');
+                var lat = $(fullAddress).data('lat');
+                var address = $(fullAddress).data('address');
+                initMap("address-map", lng, lat, "search-address-input");
+                // initAutocomplete()
+                $('#modal-address-map').modal();
+            });
+
+            // Helpers
+            function initMap(targetMapId, lng, lat, targetSearchInputId, zoom = 15) {
+                var map = new google.maps.Map(document.getElementById(targetMapId), {
+                    center: {
+                        lat: lng,
+                        lng: lat
+                    },
+                    zoom: zoom,
+                    mapTypeId: 'roadmap'
+                });
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: lng,
+                        lng: lat
+                    },
+                    map: map,
+                });
+
+                // Create the search box and link it to the UI element.
+                var input = document.getElementById(targetSearchInputId);
+                var searchBox = new google.maps.places.SearchBox(input);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                // Bias the SearchBox results towards current map's viewport.
+                map.addListener('bounds_changed', function() {
+                    searchBox.setBounds(map.getBounds());
+                });
+
+                var markers = [];
+                // more details for that place.
+                searchBox.addListener('places_changed', function() {
+                    var places = searchBox.getPlaces();
+
+                    if (places.length == 0) {
+                        return;
+                    }
+
+                    // Clear out the old markers.
+                    markers.forEach(function(marker) {
+                        marker.setMap(null);
+                    });
+                    markers = [];
+
+                    // For each place, get the icon, name and location.
+                    var bounds = new google.maps.LatLngBounds();
+                    places.forEach(function(place) {
+                        if (!place.geometry) {
+                            return;
+                        }
+                        var icon = {
+                            url: place.icon,
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(25, 25)
+                        }
+
+                        // Create a marker for each place.
+                        markers.push(new google.maps.Marker({
+                            map: map,
+                            icon: icon,
+                            title: place.name,
+                            position: place.geometry.location
+                        }));
+
+                        // log the coordinates of each "place"
+                        // put the coordinates of each place in the div with id="output"
+                        if (place.geometry.viewport) {
+                            // Only geocodes have viewport.
+                            bounds.union(place.geometry.viewport);
+                        } else {
+                            bounds.extend(place.geometry.location);
+                        }
+                    });
+                    map.fitBounds(bounds);
+                });
+            }
+        });
+    </script>
 @endsection

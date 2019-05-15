@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Customer;
 use DB;
 use Input;
 
@@ -40,8 +41,6 @@ class PageController extends Controller
 
     public function searchProducts(Request $request)
     {
-        // dd($request->all());
-
         $query = '%' . $request->get('query') . '%';
         $products = Product::where('name', 'like', $query)
                             ->orWhere('description', 'like', $query)
@@ -81,11 +80,42 @@ class PageController extends Controller
 
     public function categoryDetails($id)
     {
-    	$category = Category::find($id);
-    	// $category = Category::with('images')->find($id);
-
     	return view('frontend.pages.category-details', [
-    		'category' => $category,
+    		'category' => Category::findOrFail($id),
     	]);
+    }
+
+    public function account()
+    {
+        $customer = Customer::where('user_id', auth()->id())->firstOrFail();
+        
+        return view('frontend.pages.account', [
+            'customer' => $customer
+        ]);
+    }
+
+    public function updateAccount(Request $request)
+    {
+        $user = auth()->user();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->save();
+        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+        $customer->tel = $request->tel;
+        $customer->gender = $request->gender;
+        $customer->birth_date = $request->birth_date;
+        $customer->save();
+
+        return redirect()->route('front.account');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('front.account');
     }
 }

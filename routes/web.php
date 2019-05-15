@@ -30,16 +30,11 @@ Route::get('/about-us','front\PageController@aboutUs')->name('front.about.us');
 // Front auth routes
 Route::get('login', 'Shared\AuthController@frontLogin')->name('front.login');
 Route::post('login', 'Shared\AuthController@frontAuthenticate')->name('front.authenticate');
-
-Route::get('/password/{password}', function ($password) {
-	return bcrypt($password);
-});
-Route::get('/test', function () {
-	return dump(\Cart::content());
-});
-Route::get('/delete', function () {
-	Cart::destroy();
-});
+Route::get('register', 'Shared\AuthController@frontRegister')->name('front.register');
+Route::post('register', 'Shared\AuthController@frontStoreCustomer')->name('front.storeCustomer');
+Route::get('account', 'front\PageController@account')->name('front.account');
+Route::patch('update-account', 'front\PageController@updateAccount')->name('front.updateAccount');
+Route::patch('update-password', 'front\PageController@updatePassword')->name('front.updatePassword');
 
 
 // Routes for manage cart products
@@ -53,3 +48,20 @@ Route::get('checkout', 'Backend\CartController@checkout')->name('cart.checkout')
 // Route::resource('order', 'Backend\OrderController');
 // // Default route
 // Route::get('/', 'Backend\DashboardController@index')->name('customer.dashboard');
+
+// Routes for tests
+Route::get('/password/{password}', function ($password) {
+	return bcrypt($password);
+});
+
+Route::get('/test', function () {
+	return dump(\Cart::content());
+});
+
+Route::get('/delete', function () {
+	Cart::destroy();
+});
+
+Route::get('/auth-user', function () {
+	dd(auth()->user());
+});

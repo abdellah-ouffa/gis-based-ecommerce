@@ -1,12 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
  * @property int $customer_id
+ * @property string $address
  * @property string $lat
  * @property string $lng
  * @property string $created_at
@@ -19,7 +20,7 @@ class Address extends Model
     /**
      * @var array
      */
-    protected $fillable = ['customer_id', 'lat', 'lng', 'created_at', 'updated_at'];
+    protected $fillable = ['customer_id', 'address', 'lat', 'lng', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

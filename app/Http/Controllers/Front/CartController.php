@@ -9,9 +9,17 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
+    /**
+     * Listing of items in cart.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $items = Cart::content();
+
+        // dd($items);
+       
         $quantities = array();
         $images = array();
         foreach ($items as $key => $item) {
@@ -23,6 +31,7 @@ class CartController extends Controller
             'quantities' => $quantities
         ]);
     }
+
     /**
      * Store a newly created resource in storage.
      *

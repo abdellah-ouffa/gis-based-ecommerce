@@ -30,10 +30,10 @@
                         <div id="lg1" class="tab-pane  {{ $form != 'register' ? 'active' : '' }}">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="{{ route('front.storeCustomer') }}" method="post">
+                                    <form action="{{ route('front.authenticate') }}" method="post">
                                     	@csrf
-                                        <input type="text" name="user-name" placeholder="Username">
-                                        <input type="password" name="user-password" placeholder="Password">
+                                        <input type="text" name="email" placeholder="Username">
+                                        <input type="password" name="password" placeholder="Password">
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox">
@@ -49,7 +49,7 @@
                         <div id="lg2" class="tab-pane {{ $form == 'register' ? 'active' : '' }}">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="{{ route('front.frontStoreCustomer') }}" method="post">
+                                    <form action="{{ route('front.storeCustomer') }}" method="post">
                                     	@csrf
                                     	<div class="row">
                                     		<div class="col-md-6">

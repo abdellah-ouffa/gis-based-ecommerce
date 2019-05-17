@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property Address $address
+ * @property string $additionnal_information
  * @property Customer $customer
  * @property OrderDetail[] $orderDetails
  */
@@ -21,7 +22,7 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['customer_id', 'address_id', 'status', 'date', 'created_at', 'updated_at'];
+    protected $fillable = ['customer_id', 'address_id', 'status', 'date', 'additionnal_information', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -106,7 +106,7 @@
             @foreach ($product->relatedProducts as $relatedProduct)
 	            <div class="product-wrap">
 	                <div class="product-img">
-	                    <a href="#">
+	                    <a href="{{ route('front.product.details', ['slug' => $relatedProduct->slug]) }}">
 	                        <img class="default-img" src="{{ asset($relatedProduct->imagePath) }}" alt="">
 	                        <img class="hover-img" src="{{ asset($relatedProduct->imagePath) }}" alt="">
 	                    </a>

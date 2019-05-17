@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Product;
+use App\Models\Customer;
 
 class CartController extends Controller
 {
@@ -94,10 +95,13 @@ class CartController extends Controller
         Cart::remove($id);
         return back()->with('success', 'Item has been removed!');
     }
+
     public function checkout()
     {
-        return view('backend.cart.checkout', [
-            'cart' => Cart::content()
+        $customer = Customer::where('user_id', auth()->id())->firstOrFail();
+        return view('frontend.pages.checkout', [
+            'cart' => Cart::content(),
+            'customer' => $customer
         ]);
     }
 }

@@ -27,9 +27,17 @@
                         <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
                         <div class="account-dropdown">
                             <ul>
-                                <li><a href="login-register.html">Login</a></li>
-                                <li><a href="login-register.html">Register</a></li>
-                                <li><a href="my-account.html">my account</a></li>
+                                @guest
+                                    <li><a href="{{ route('front.login') }}">Login</a></li>
+                                    <li><a href="{{ route('front.register') }}">Register</a></li>
+                                @else
+                                    <li><a href="{{ route('front.account') }}">My account</a></li>
+                                    <li><a href="{{ route('front.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                                    <form id="logout-form" action="{{ route('front.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                @endguest
+
                             </ul>
                         </div>
                     </div>
@@ -59,10 +67,10 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li><a href="{{route('front.home')}}">Home</a></li>
-                                <li><a href="{{route('front.allProducts')}}"> Shop</a></li>
-                                <li><a href="{{route('front.about.us')}}"> About </a></li>
-                                <li><a href="{{route('front.contact')}}"> Contact</a></li>
+                                <li><a href="{{ route('front.home') }}">Home</a></li>
+                                <li><a href="{{ route('front.allProducts') }}"> Shop</a></li>
+                                <li><a href="{{ route('front.about.us' )}}"> About </a></li>
+                                <li><a href="{{ route('front.contact') }}"> Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -72,9 +80,10 @@
                 <div class="mobile-menu">
                     <nav id="mobile-menu-active">
                         <ul class="menu-overflow">
-                            <li><a href="shop.html">Collection</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ route('front.home') }}">Home</a></li>
+                            <li><a href="{{ route('front.allProducts') }}"> Shop</a></li>
+                            <li><a href="{{ route('front.about.us' )}}"> About </a></li>
+                            <li><a href="{{ route('front.contact') }}"> Contact</a></li>
                         </ul>
                     </nav>
                 </div>

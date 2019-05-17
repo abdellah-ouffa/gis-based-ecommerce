@@ -34,20 +34,20 @@
                                     <div class="col-xl-4 col-md-6 col-lg-6 col-sm-6">
                                         <div class="product-wrap mb-25 scroll-zoom">
                                             <div class="product-img">
-                                                <a href="#">
+                                                <a href="{{ route('front.product.details', ['slug' => $product->slug]) }}">
                                                     <img class="default-img" src="{{ asset($product->imagePath) }}" alt="">
                                                     <img class="hover-img" src="{{ asset($product->imagePath) }}" alt="">
                                                 </a>
                                                 <span class="pink">{{ $product->status }}</span>
                                                 <div class="product-action">
                                                     <div class="pro-same-action pro-wishlist">
-                                                        <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
+                                                        <a title="Wishlist" href="{{ route('front.product.details', ['slug' => $product->slug]) }}"><i class="pe-7s-like"></i></a>
                                                     </div>
                                                     <div class="pro-same-action pro-cart">
-                                                        <a title="Add To Cart" href="#"><i class="pe-7s-cart"></i> Add to cart</a>
+                                                        <a title="Add To Cart" href="{{ route('front.product.details', ['slug' => $product->slug]) }}"><i class="pe-7s-cart"></i> Add to cart</a>
                                                     </div>
                                                     <div class="pro-same-action pro-quickview">
-                                                        <a title="Quick View" href="#" data-toggle="modal" data-target="#modal-product-{{ $product->id }}"><i class="pe-7s-look"></i></a>
+                                                        <a title="Quick View" href="{{ route('front.product.details', ['slug' => $product->slug]) }}" data-toggle="modal" data-target="#modal-product-{{ $product->id }}"><i class="pe-7s-look"></i></a>
                                                     </div>
                                                 </div>
                                             </div>

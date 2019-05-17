@@ -31,6 +31,13 @@
           opacity: 0.5 !important;
           text-decoration: none !important;
         }
+        .btn-primary {
+            background-color: #a749ff !important;
+            border-color: #a749ff !important; 
+        }
+        .hide {
+            display: none;
+        }
     </style>
 </head>
 

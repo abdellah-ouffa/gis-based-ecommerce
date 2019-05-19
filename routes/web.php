@@ -46,6 +46,7 @@ Route::post('cart', 'Front\CartController@store')->name('cart.store');
 Route::put('cart', 'Front\CartController@update')->name('cart.update');
 Route::delete('cart/{id}', 'Front\CartController@destroy')->name('cart.destroy');
 Route::get('checkout', 'Front\CartController@checkout')->name('cart.checkout');
+Route::post('order/store', 'Front\OrderController@store')->name('order.store');
 // Route::get('testmiddlware', ["middleware"=>"authCustomer",  "uses" => 'Front\CartController@index']);
 Route::get("check-md",["uses"=>"Front\CartController@index","middleware"=>"authCustomer"]);
 

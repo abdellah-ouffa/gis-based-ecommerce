@@ -32,3 +32,5 @@ define('ABOUT_PAGE_MANAGER_NAME', 'Mr.Abdellah Ouffa');
 define('ABOUT_PAGE_DEVELOPER_NAME', 'Mr.Abdellah Ouffa');
 define('CONTACT_PAGE_COMPANY_NAME', 'E-commerce company');
 define('CONTACT_PAGE_MANAGER_EMAIL','ouffaabdellah@gmail.com');
+// Orders
+define('DEFAULT_ORDER_STATUS','pending');

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Image;
-use Session;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class Orderontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       $categories = Category::all();
-        return view('backend.categories.index', [
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -29,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.categories.create');
+        //
     }
 
     /**
@@ -40,20 +35,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
-        if($request->hasFile('images')) {
-            $files = $request->file('images');
-            foreach ($files as $key => $file) {
-                Image::create([
-                    'model_id' => $category->id, 
-                    'path' => saveFile($file, 'category-images'), 
-                    'type' => 'category'
-                ]);
-            }
-        }
-        Session::flash('success', 'Category created succesfully');
-
-        return redirect('category');
+        //
     }
 
     /**
@@ -75,12 +57,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::findOrFail($id);
-        
-
-        return view('backend.categories.edit',[
-            'categories'=> $categories
-        ]);
+        //
     }
 
     /**

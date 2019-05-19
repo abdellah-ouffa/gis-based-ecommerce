@@ -61,5 +61,12 @@
 <script src="{{ asset('front/assets/js/main.js') }}"></script>
 {{-- Google map js --}}
 @yield('custom-javascript')
+
+<script>
+    $('.link-submit-form').click(function (event) {
+        event.preventDefault();
+        $('#' + $(this).attr('target-form')).submit();
+    });
+</script>
 </body>
 </html>

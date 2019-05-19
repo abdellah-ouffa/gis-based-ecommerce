@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property Category $category
- * @property OrderDetail[] $orderDetails
+ * @property Order[] $orders
  */
 class Product extends Model
 {
@@ -33,11 +33,13 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function orderDetails()
+    public function orders()
     {
-        return $this->hasMany(OrderDetail::class, 'product_id');
+        return $this->belongsToMany(Order::class, 'order_details')
+                    ->as('OrderDetail')
+                    ->withPivot('product_id', 'order_id', 'qte', 'created_at', 'updated_at');
     }
 
     /**

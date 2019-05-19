@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Address $address
  * @property string $additionnal_information
  * @property Customer $customer
- * @property OrderDetail[] $orderDetails
+ * @property Product[] $products
  */
 class Order extends Model
 {
@@ -41,10 +41,12 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function orderDetails()
+    public function products()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id');
+        return $this->belongsToMany(Product::class, 'order_details')
+                    ->as('OrderDetail')
+                    ->withPivot('product_id', 'order_id', 'qte', 'created_at', 'updated_at');
     }
 }

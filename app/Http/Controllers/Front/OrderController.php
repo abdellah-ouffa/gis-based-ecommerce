@@ -38,10 +38,12 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $customer = Customer::where('user_id', auth()->id())->firstOrFail();
         $products = Cart::content();
+        
         
         if($request->add_new_address_is_active) {
             $address = $customer->addresses()->create([

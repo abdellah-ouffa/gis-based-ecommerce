@@ -32,7 +32,9 @@ Route::get('search-products', 'Front\PageController@searchProducts')->name('fron
 Route::post('search-products-price', 'Front\PageController@searchProductsByPrice')->name('front.searchProductsByPrice');
 Route::get('contact', 'Front\PageController@contact')->name('front.contact');
 Route::get('/product-details/{slug}', 'Front\PageController@productDetails')->name('front.product.details');
+// Route::get('/category-details/{id}','Front\PageController@categoryDetails')->name('front.category.details');
 Route::get('/category-details/{id}','Front\PageController@categoryDetails')->name('front.category.details');
+
 Route::get('/about-us','front\PageController@aboutUs')->name('front.about.us');
 // Routes for front auth
 Route::get('login', 'Shared\AuthController@frontLogin')->name('front.login');

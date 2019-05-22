@@ -36,7 +36,11 @@ class Category extends Model
 
     public function getImagePathAttribute()
     {
-        return "storage/" . ($this->images()->first()->path ?? "category-images/default-category-image.jpg"); 
+        $imagePath = $this->images()->first()->path;
+        if (strpos($imagePath, 'https://lorempixel.com') !== false) {
+            return $imagePath;
+        }
+        return "storage/" . ($imagePath ?? "category-images/default-category-image.jpg"); 
     }
 
     public function getCountProductsAttribute()

@@ -52,7 +52,11 @@ class Product extends Model
 
     public function getImagePathAttribute()
     {
-        return "storage/" . ($this->images()->first()->path ?? "product-images/default-product-image.jpg"); 
+        $imagePath = $this->images()->first()->path;
+        if (strpos($imagePath, 'https://lorempixel.com') !== false) {
+            return $imagePath;
+        }
+        return "storage/" . ($imagePath ?? "product-images/default-product-image.jpg"); 
     }
 
     public function getRelatedProductsAttribute()

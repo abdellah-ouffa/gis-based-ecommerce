@@ -77,13 +77,18 @@ class PageController extends Controller
     {
     	return view('frontend.pages.contact');
     }
-
+// try to make something
     public function categoryDetails($id)
     {
-    	return view('frontend.pages.category-details', [
-    		'category' => Category::findOrFail($id),
-    	]);
+   
+  	$categories = Category::findOrFail($id);
+    // $products = Product::paginate(ALL_PRODUCTS_PRODUCTS_LENGTH);
+
+        return view('frontend.pages.all-category-products', [
+            'categories' => $categories
+        ]);
     }
+// the same thing goes here
 
     public function account()
     {

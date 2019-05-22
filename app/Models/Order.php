@@ -49,4 +49,9 @@ class Order extends Model
                     ->as('OrderDetail')
                     ->withPivot('product_id', 'order_id', 'qte', 'created_at', 'updated_at');
     }
+
+
+
+
 }
+

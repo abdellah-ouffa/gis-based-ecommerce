@@ -23,10 +23,10 @@
                         <div class="tab-content jump"> 
                         	@foreach ($product->images as $image)
 	                            <div id="shop-details-{{ $image->id }}" class="tab-pane {{ $loop->first ? 'active' : '' }} large-img-style">
-	                                <img src="{{ asset("storage/" . $image->path) }}" alt="">
+	                                <img src="{{ $image->path }}" alt="">
 	                                <span class="dec-price">{{ $product->status }}</span>
 	                                <div class="img-popup-wrap">
-	                                    <a class="img-popup" href="{{ asset("storage/" . $image->path) }}"><i class="pe-7s-expand1"></i></a>
+	                                    <a class="img-popup" href="{{ $image->path }}"><i class="pe-7s-expand1"></i></a>
 	                                </div>
 	                            </div>
                             @endforeach
@@ -34,7 +34,7 @@
                         <div class="shop-details-tab nav">
                             @foreach ($product->images as $image)
 	                            <a class="shop-details-overly" href="#shop-details-{{ $image->id }}" data-toggle="tab">
-	                                <img src="{{ asset("storage/" . $image->path) }}" alt="">
+	                                <img src="{{ $image->path }}" alt="">
 	                            </a>
                             @endforeach
                         </div>

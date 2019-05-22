@@ -121,9 +121,9 @@ center:{lat:31.6639704,lng:-8.029472599999963}
 var map= new google.maps.Map(document.getElementById('map'),options);
 // Add marker
 var marker= new google.maps.Marker({
-position:{lat:"{{ SITE_ADDRESS_LNG }}",lng:"{{ SITE_ADDRESS_LNG }}"},
+position:{lat:{{ SITE_ADDRESS_LNG }},lng:{{ SITE_ADDRESS_LNG }}},
 map:map,
-icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+icon:'{{ asset('images/icons-map/euro.png') }}'
 });
 // infoWindow
 var infoWindow = new google.maps.InfoWindow({

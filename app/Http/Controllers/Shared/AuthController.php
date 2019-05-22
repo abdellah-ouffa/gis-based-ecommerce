@@ -60,4 +60,30 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('front.home');
     }
+
+    public function backendLogin()
+    {
+        return view('backend.auth.login');
+    }
+
+    public function backendAuthenticate(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            if((Auth::user()->role != 'admin')) {
+                Auth::logout();
+                return view('backend.auth.login', [
+                    'error' => '403 - Unauthorized',
+                    'email' => $request->email,
+                ]);
+            }
+            return redirect()->route('product.index');
+        } else {
+            return view('backend.auth.login', [
+                'error' => 'Login or password was incorrect',
+                'email' => $request->email,
+            ]);
+        }
+    }
 }

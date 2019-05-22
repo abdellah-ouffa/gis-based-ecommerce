@@ -37,7 +37,6 @@
                                         @csrf
                                     </form>
                                 @endguest
-
                             </ul>
                         </div>
                     </div>
@@ -49,6 +48,7 @@
                             </button>
                         </form>
                     </div>
+                    <a style="margin-left: 37px;" href="{{ route('product.index') }}">Admin area</a>
                 </div>
             </div>
         </div>

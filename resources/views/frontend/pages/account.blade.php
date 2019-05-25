@@ -1,4 +1,5 @@
 @extends('frontend.layouts.master')
+
 @section('content')
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
     <div class="container">
@@ -45,15 +46,15 @@
                                                     <div class="billing-info">
                                                         <label>Gender</label>
                                                         <select name="gender" class="form-control" id="gender">
-                                                            <option {{ $customer->gender == 'Female' ? "selected" : "" }} value="Female">Female</option>
-                                                            <option {{ $customer->gender == 'Male' ? "selected" : "" }} value="Male">Male</option>
+                                                        <option {{ $customer->gender == 'Female' ? "selected" : "" }} value="Female">Female</option>
+                                                        <option {{ $customer->gender == 'Male' ? "selected" : "" }} value="Male">Male</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
                                                         <label>Birth Date</label>
-                                                        <input type="date" name="birth_date" value="{{ $customer->birth_date }}">
+                                                        <input type="date" name="birth_date" value="{{-- {{ $customer->birth_date }} --}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12">
@@ -148,6 +149,81 @@
                                             @endforelse
                                         </div>
                                         <div class="billing-back-btn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default single-my-account">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><span>4 .</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-4">My orders </a></h3>
+                            </div>
+                            <div id="my-account-4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="myaccount-info-wrapper">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Customer name</th>
+                                                    <th>Status</th>
+                                                    <th>address</th>
+                                                    <th>date of order</th>
+                                                    <th>Additional info</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($customer->orders as $order)
+                                                    <tr>
+                                                        <td>{{ $order->customer->user->fullName }}</td>
+                                                        <td>{{ $order->status }}</td>
+                                                        <td>{{ $order->address->address }}</td>
+                                                        <td>{{ $order->created_at }}</td>
+                                                        <td>{{ $order->additionnal_information }}</td>
+                                                        <td>
+                                                            <button data-toggle="modal" data-target="#modal-show-order-details-{{ $order->id }}" class="btn btn-sm btn-info">Products</button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="modal fade" id="modal-show-order-details-{{ $order->id }}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        Order details
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-striped table-bordered">
+                                                            <tr>
+                                                                <th>Product name</th>
+                                                                <th>Category</th>
+                                                                <th>Price</th>
+                                                                <th>Qty</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                            @php $total = 0; @endphp
+                                                            @foreach ($order->products as $product)
+                                                                @php $total += $product->OrderDetail->qte * $product->price; @endphp
+                                                                <tr>
+                                                                    <td>{{ $product->name }}</td>
+                                                                    <td>{{ $product->category->name }}</td>
+                                                                    <td>{{ $product->price }}</td>
+                                                                    <td>{{ $product->OrderDetail->qte }}</td>
+                                                                    <td>{{numberToPriceFormat($product->OrderDetail->qte * $product->price) }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <strong>Total</strong>
+                                                                </td>
+                                                                <td>{{ numberToPriceFormat($total) }}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

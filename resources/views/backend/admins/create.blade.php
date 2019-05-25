@@ -1,15 +1,15 @@
 @extends('backend.layouts.master')
 
-@section('title') Add new customer @endsection
+@section('title') Add new Admin @endsection
 
 @section('content')
    <div class="page-head">
       <h2>Customers area</h2>
       <ol class="breadcrumb">
          <li>
-            <a href="#">Dashboard</a>
+            <a href="#">tableau de bord</a>
          </li>
-         <li class="active">Add new customer</li>
+         <li class="active">Add new Admin</li>
       </ol>
    </div>
    <div class="main-content">
@@ -18,12 +18,12 @@
             <div class="panel panel-default panel-borders">
                <div class="panel-heading">
                   <div class="tools">
-                     <a href="{{ route('customer.index') }}" class="btn btn-success">List of customers</a>
+                     <a href="{{-- {{ route('customer.index') }} --}}" class="btn btn-success">List of customers</a>
                   </div>
                   <span class="title">Add new customer</span>
                </div>
                <div class="panel-body">
-                  <form action="{{url('customer')}}" method="post" >
+                  <form action="{{url('admin')}}" method="post" >
                      {{ csrf_field() }}
                      <div class="row">
                         <div class="col-md-6">
@@ -49,12 +49,7 @@
                               </select>
                            </div>
                         </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="">Date of birth</label>
-                              <input type="date" name="birth_date" class="form-control" placeholder="Date of birth">
-                           </div>
-                        </div>
+                        
                      </div>
                      <div class="row">
                         <div class="col-md-6">

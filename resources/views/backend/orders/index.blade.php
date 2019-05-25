@@ -41,7 +41,11 @@
                            <tr>
                               <td>{{ $order->customer->user->fullName }}</td>
                               <td>{{ $order->status }}</td>
-                              <td>{{$order->OrderDetail}}</td>
+                              <td>
+                                 @foreach ($order->products as $product)
+                                    {{ $product->name }}
+                                 @endforeach
+                              </td>
                               <td>{{ $order->created_at }}</td>
                               <td>{{ $order->additionnal_information }}</td>
                               <td>{{ $order->customer->tel }}</td>

@@ -50,8 +50,9 @@ class Order extends Model
                     ->withPivot('product_id', 'order_id', 'qte', 'created_at', 'updated_at');
     }
 
-
-
-
+    // public function FunctionName($value='')
+    // {
+    //     # code...
+    // }
 }
 

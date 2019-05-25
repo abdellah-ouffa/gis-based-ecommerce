@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Order;
 use DB;
 use Input;
 
@@ -93,7 +94,7 @@ class PageController extends Controller
     public function account()
     {
         $customer = Customer::where('user_id', auth()->id())->firstOrFail();
-        
+
         return view('frontend.pages.account', [
             'customer' => $customer
         ]);

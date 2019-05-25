@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(){
+    public function index() 
+    {
     	$orders = Order::all();
+        
         return view('backend.orders.index', [
             'orders' => $orders
         ]);
-
-       $products = Products::all();
     }
 }

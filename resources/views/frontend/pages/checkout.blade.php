@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label><strong>Full Name :</strong></label> Mouad ZIANI
+                                    <label><strong>Full Name :</strong></label> Abdellah Ouffa
                                 </div>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
 @endsection
 
 @section('custom-javascript')
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ MAP_KEY }}&v=3.exp&sensor=false&libraries=places&language=fr-FR"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDebAMQ2oe6eiBRR5YWBJqKY5KyQxsSbKc&v=3.exp&sensor=false&libraries=places&language=fr-FR"></script>
     <script src="https://tiboolo.fr/assets/js/locationpicker.jquery.js"></script>
     <script>
         $(function() {

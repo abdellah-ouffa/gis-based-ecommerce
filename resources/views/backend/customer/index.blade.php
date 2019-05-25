@@ -46,7 +46,7 @@
                               <td>{{ $customer->gender }}</td>
                               <td>{{ $customer->birth_date->format('Y-m-d') }}</td>
                               <td>
-                                 <a href=""class="btn btn-info">detail</a>
+                                 <a href="" class="btn btn-info">detail</a>
                                  <a href="{{url('customer/'.$customer->id.'/edit')}}" class="btn btn-success">Edit</a>
                                  <form data-resource-name="customer" class="form-remove" action="{{ route('customer.destroy', ['id' => $customer->id]) }}" id="form-delete-product-{{ $customer->id }}" method="POST">
                                     @csrf

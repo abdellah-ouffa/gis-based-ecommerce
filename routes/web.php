@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'authAdmin'], function () {
 	Route::resource('customer','CustomerController');
 	Route::resource('order','OrderController');
 	Route::resource('address','AddressController');
+	Route::resource('admin','AdminController');
 });
 
 // Routes for auth users (Front)

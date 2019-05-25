@@ -102,6 +102,12 @@ class CartController extends Controller
         return view('frontend.pages.checkout', [
             'cart' => Cart::content(),
             'customer' => $customer
+      
         ]);
+       
+       
+
     }
+    
+    
 }

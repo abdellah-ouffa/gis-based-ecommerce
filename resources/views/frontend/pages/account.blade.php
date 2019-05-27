@@ -1,5 +1,4 @@
 @extends('frontend.layouts.master')
-
 @section('content')
 <div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
     <div class="container">
@@ -15,6 +14,11 @@
 </div>
 <div class="checkout-area pb-80 pt-100">
     <div class="container">
+        @if(session()->has('success'))
+            <div class="alert alert-success">
+               {{ session()->get('success') }}
+            </div>
+        @endif
         <div class="row">
             <div class="ml-auto mr-auto col-lg-12">
                 <div class="checkout-wrapper">
@@ -46,8 +50,8 @@
                                                     <div class="billing-info">
                                                         <label>Gender</label>
                                                         <select name="gender" class="form-control" id="gender">
-                                                        <option {{ $customer->gender == 'Female' ? "selected" : "" }} value="Female">Female</option>
-                                                        <option {{ $customer->gender == 'Male' ? "selected" : "" }} value="Male">Male</option>
+                                                            <option {{ $customer->gender == 'Female' ? "selected" : "" }} value="Female">Female</option>
+                                                            <option {{ $customer->gender == 'Male' ? "selected" : "" }} value="Male">Male</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -126,31 +130,37 @@
                             </div>
                             <div id="my-account-3" class="panel-collapse collapse">
                                 <div class="panel-body">
+                                    
                                     <div class="myaccount-info-wrapper">
                                         <div class="account-info-wrapper">
                                             <h4>Address Book Entries</h4>
                                         </div>
                                         <div class="entries-wrapper">
                                             @forelse ($customer->addresses as $address)
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                        <div class="entries-info text-center">
-                                                            <p>{{ $address->address }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                                        <div class="entries-edit-delete text-center">
-                                                            <a href="#">Delete</a>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                                                    <div class="entries-info text-center">
+                                                        <p>{{ $address->address }}</p>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
+                                                    <div class="entries-edit-delete text-center">
+                                                        <form action= "{{ route('front.destroyAddress', ['id' => $address->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger{{-- btn-remove --}}">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @empty
-                                                <h4 class="text-center">No address found</h4>
+                                            <h4 class="text-center">No address found</h4>
                                             @endforelse
                                         </div>
                                         <div class="billing-back-btn">
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -187,24 +197,25 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="modal fade" id="modal-show-order-details-{{ $order->id }}" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        Order details
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <table class="table table-striped table-bordered">
-                                                            <tr>
-                                                                <th>Product name</th>
-                                                                <th>Category</th>
-                                                                <th>Price</th>
-                                                                <th>Qty</th>
-                                                                <th>Total</th>
-                                                            </tr>
-                                                            @php $total = 0; @endphp
-                                                            @foreach ($order->products as $product)
+                                        @foreach($customer->orders as $order)
+                                            <div class="modal fade" id="modal-show-order-details-{{ $order->id }}" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            Order details
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-striped table-bordered">
+                                                                <tr>
+                                                                    <th>Product name</th>
+                                                                    <th>Category</th>
+                                                                    <th>Price</th>
+                                                                    <th>Qty</th>
+                                                                    <th>Total</th>
+                                                                </tr>
+                                                                @php $total = 0; @endphp
+                                                                @foreach ($order->products as $product)
                                                                 @php $total += $product->OrderDetail->qte * $product->price; @endphp
                                                                 <tr>
                                                                     <td>{{ $product->name }}</td>
@@ -213,18 +224,19 @@
                                                                     <td>{{ $product->OrderDetail->qte }}</td>
                                                                     <td>{{numberToPriceFormat($product->OrderDetail->qte * $product->price) }}</td>
                                                                 </tr>
-                                                            @endforeach
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <strong>Total</strong>
-                                                                </td>
-                                                                <td>{{ numberToPriceFormat($total) }}</td>
-                                                            </tr>
-                                                        </table>
+                                                                @endforeach
+                                                                <tr>
+                                                                    <td colspan="4">
+                                                                        <strong>Total</strong>
+                                                                    </td>
+                                                                    <td>{{ numberToPriceFormat($total) }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

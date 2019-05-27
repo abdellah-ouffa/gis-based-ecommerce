@@ -8,8 +8,11 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Address;
+use Session;
 use DB;
 use Input;
+
 
 class PageController extends Controller
 {
@@ -122,6 +125,14 @@ class PageController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
+        return redirect()->route('front.account');
+    }
+
+    public function destroyAddress($id)
+    {
+        $address = Address::findOrFail($id)->delete();
+        session()->flash('success','address has been removed succefully');
+        
         return redirect()->route('front.account');
     }
 }

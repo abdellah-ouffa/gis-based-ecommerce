@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -97,15 +98,12 @@ class CartController extends Controller
     }
 
     public function checkout()
-    {
+    {    
         $customer = Customer::where('user_id', auth()->id())->firstOrFail();
         return view('frontend.pages.checkout', [
             'cart' => Cart::content(),
-            'customer' => $customer
-      
+            'customer' => $customer,
         ]);
-       
-       
 
     }
     

@@ -107,6 +107,7 @@ class CustomerController extends Controller
         Session::flash('success', 'Customer updated succesfully');
 
         return redirect()-> route('customer.index');
+
     }
 
 

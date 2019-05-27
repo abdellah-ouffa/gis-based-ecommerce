@@ -21,8 +21,8 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav am-top-menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="{{ route('front.home') }}">Home</a></li>
+                <li><a href="{{ route('front.about.us') }}">About</a></li>
                 <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Services <span class="angle-down s7-angle-down"></span></a>
                 <ul role="menu" class="dropdown-menu">
                     <li><a href="#">UI Consulting</a></li>

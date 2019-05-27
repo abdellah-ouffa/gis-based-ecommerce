@@ -30,11 +30,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'authAdmin'], function () {
 	Route::resource('admin','AdminController');
 });
 
+
 // Routes for auth users (Front)
 Route::group(['middleware' => 'authCustomer'], function () {
 	Route::get('account', 'front\PageController@account')->name('front.account');
 	Route::patch('update-account', 'front\PageController@updateAccount')->name('front.updateAccount');
+	Route::delete('destroy-address/{id}', 'front\PageController@destroyAddress')->name('front.destroyAddress');
 	Route::patch('update-password', 'front\PageController@updatePassword')->name('front.updatePassword');
+	Route::get('checkout', 'Front\CartController@checkout')->name('cart.checkout');
 });
 // Routes for frontend
 Route::get('/', 'Front\PageController@home')->name('front.home');
@@ -51,12 +54,17 @@ Route::get('register', 'Shared\AuthController@frontRegister')->name('front.regis
 Route::post('register', 'Shared\AuthController@frontStoreCustomer')->name('front.storeCustomer');
 Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
 
+// Routes for supplier auth
+Route::get('supplier-register', 'Supplier\AuthSupplierController@supplierRegister')->name('supplier.register');
+Route::post('supplier-register', 'Supplier\AuthSupplierController@supplierStoreSupplier')->name('supplier.storeSupplier');
+Route::get('supplier-home', 'Supplier\SupplierController@index')->name('supplier.index');
+// Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
+
 // Routes for manage cart products
 Route::get('cart', 'Front\CartController@index')->name('cart.index');
 Route::post('cart', 'Front\CartController@store')->name('cart.store');
 Route::put('cart', 'Front\CartController@update')->name('cart.update');
 Route::delete('cart/{id}', 'Front\CartController@destroy')->name('cart.destroy');
-Route::get('checkout', 'Front\CartController@checkout')->name('cart.checkout');
 Route::post('order/store', 'Front\OrderController@store')->name('order.store');
 Route::get("check-md",["uses"=>"Front\CartController@index","middleware"=>"authCustomer"]);
 
@@ -87,7 +95,7 @@ Route::get('/password/{password}', function ($password) {
 });
 
 Route::get('/test', function () {
-	return view('auth.login-admin');
+	return view('backend.auth.register');
 });
 
 Route::get('/delete', function () {

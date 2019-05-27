@@ -30,6 +30,7 @@ class OrderController extends Controller
                 'address' => $request->address_name . ' ' .  $request->zipcode . ' ' .  $request->city . ' ' .  $request->country, 
                 'lng' => $request->longitude, 
                 'lat' => $request->latitude,
+                
             ]);
         } else {
             $address = $request->address;

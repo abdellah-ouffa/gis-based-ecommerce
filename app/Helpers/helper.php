@@ -54,9 +54,22 @@
 		}
 	}
 
-	function existsOnBasket($productId) {
-		$exists = Cart::search(function ($cartItem, $rowId) use ($productId) {
-	        return $cartItem->id === $productId;
-	    });
-	    return $exists->isNotEmpty();
+	if(!function_exists('existsOnBasket')) {
+		function existsOnBasket($productId) {
+			$exists = Cart::search(function ($cartItem, $rowId) use ($productId) {
+		        return $cartItem->id === $productId;
+		    });
+		    return $exists->isNotEmpty();
+		}
+	}
+
+	if(!function_exists('calcDateDiffYears')) {
+		function calcDateDiffYears($from, $to) {
+			$diff = abs(strtotime($to) - strtotime($from));
+			$years = floor($diff / (365*60*60*24));
+			$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+			$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+			return $years;
+		}
 	}

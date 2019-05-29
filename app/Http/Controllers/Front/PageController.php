@@ -64,8 +64,7 @@ class PageController extends Controller
         $fromPrice = str_replace("$", "", explode(" - ", $request->price)[0]);
         $toPrice = str_replace("$", "", explode(" - ", $request->price)[1]);
 
-        $products = Product::whereBetween('price', [$fromPrice, $toPrice])
-                            ->paginate(ALL_PRODUCTS_PRODUCTS_LENGTH);
+        $products = Product::whereBetween('price', [$fromPrice, $toPrice])->paginate(ALL_PRODUCTS_PRODUCTS_LENGTH);
                             
         return view('frontend.pages.all-products', [
             'products' => $products,

@@ -57,7 +57,10 @@ Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
 // Routes for supplier auth
 Route::get('supplier-register', 'Supplier\AuthSupplierController@supplierRegister')->name('supplier.register');
 Route::post('supplier-register', 'Supplier\AuthSupplierController@supplierStoreSupplier')->name('supplier.storeSupplier');
-Route::get('supplier-home', 'Supplier\SupplierController@index')->name('supplier.index');
+Route::group(['middleware' => 'authAdmin'], function () {
+	Route::get('supplier-home', 'Supplier\SupplierController@index')->name('supplier.index');
+	Route::post('filter-products-periode', 'Supplier\SupplierController@filterProductsByperiode')->name('supplier.filterProductsByperiode');
+});
 // Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
 
 // Routes for manage cart products

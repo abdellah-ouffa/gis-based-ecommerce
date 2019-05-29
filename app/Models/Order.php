@@ -19,6 +19,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    // protected $appends = ['count_ordred_products'];
+
+    // protected $with = ['products']; // load relationships with eger mode
+
     /**
      * @var array
      */
@@ -50,9 +54,24 @@ class Order extends Model
                     ->withPivot('product_id', 'order_id', 'qte', 'created_at', 'updated_at');
     }
 
-    // public function FunctionName($value='')
-    // {
-    //     # code...
-    // }
+    /**
+     * Get count of products ordered
+     *
+     * @return float
+     */
+    public function getCountOrdredProductsAttribute() {
+        return $this->products->sum(function ($item) {
+            return $item->OrderDetail->qte;
+        });
+    }
+
+    /**
+     * Get Customer Age At Ordered Time
+     *
+     * @return float
+     */
+    public function getCustomerAgeAtOrderedTimeAttribute() {
+        return calcDateDiffYears($this->customer->birth_date, $this->date);
+    }
 }
 

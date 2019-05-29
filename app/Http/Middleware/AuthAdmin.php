@@ -17,6 +17,9 @@ class AuthAdmin
     public function handle($request, Closure $next)
     {
         if(Auth::check()) {
+            // if(Auth::user()->role == "supplier") {
+            //     return redirect()->route('supplier.index');
+            // }
             return (Auth::user()->role == 'admin') ? $next($request) : abort(403);
         }
         return redirect()->route('backend.login');

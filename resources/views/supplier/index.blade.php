@@ -15,6 +15,8 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default panel-borders">
+			<form class="search-form" id="search-form" action="{{ route('supplier.filterProductsByperiode') }}" method="POST">
+			    @csrf
 				<div class="panel-heading">
 					<span class="title">Serach</span>
 				</div>
@@ -31,13 +33,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="">From</label>
-										<input type="date" name="slug" class="form-control input-sm">
+										<input type="date" name="from" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="">To</label>
-										<input type="date" name="slug" class="form-control input-sm">
+										<input type="date" name="to" class="form-control input-sm">
 									</div>
 								</div>
 							</div>
@@ -45,18 +47,19 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="">&nbsp;</label>
-								<button class="btn btn-info btn-sm btn-block form-control input-sm">Search</button>
+								<button  type="submit" class="btn btn-info btn-sm btn-block form-control input-sm">Search</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			</form>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="widget widget-tile">
 						<div class="data-info">
 							<div data-toggle="counter" data-end="18.6" data-decimals="1" data-suffix="%" class="value">
-								<strong>170</strong>
+								<strong>{{ $productCount ?? '0' }}</strong>
 							</div>
 							<div class="desc">Product Sold</div>
 						</div>
@@ -67,7 +70,7 @@
 					<div class="widget widget-tile">
 						<div class="data-info">
 							<div data-toggle="counter" data-end="18.6" data-decimals="1" data-suffix="%" class="value">
-								<strong>20</strong>
+								<strong>{{ $customerCount ?? '0' }}</strong>
 							</div>
 							<div class="desc">Customer number</div>
 						</div>
@@ -78,7 +81,7 @@
 					<div class="widget widget-tile">
 						<div class="data-info">
 							<div data-toggle="counter" data-end="18.6" data-decimals="1" data-suffix="%" class="value">
-								<strong>8</strong> To <strong> 20 </strong> Years-old
+								<strong>{{ $minCustomerAge ?? '0'  }}</strong> To <strong> {{ $maxCustomerAge ?? '0' }} </strong> Years-old
 							</div>
 							<div class="desc">Age-range</div>
 						</div>
@@ -129,34 +132,25 @@
 	<script  src="{{asset('front/assets/API/js/googlemap.js')}}"></script>
 
 	<script>
-		function initMap(){
-			//map options
+		var coordinates = @json($coordinates);
+		function initMap() {
 			var options = {
-			zoom: 14,
-			center:{ lat:31.6639704, lng: -8.029472599999963 }
+				zoom: 2,
+				center:{ lat:31.6639704, lng: -8.029472599999963 }
+			}
+			var map = new google.maps.Map(document.getElementById('map'),options);
+			// Add marker
+			for (var i = 0; i < coordinates.length; i++) {
+				console.log(coordinates[i]['lng']);
+				addMarker({coords: {lat: Number(coordinates[i]['lat']), lng: Number(coordinates[i]['lng'])}});
+			}
+			function addMarker(props){
+				var marker = new google.maps.Marker({
+					position: props.coords,
+					map: map
+				})
+			}
 		}
-		// New map
-		var map= new google.maps.Map(document.getElementById('map'),options);
-		// Add marker
-		var marker = new google.maps.Marker({
-		position: {lat: 31.6639704, lng: -8.029472599999963},
-		map: map,
-		});
-		marker.addListener('click',function(){
-		infoWindow.open(map, marker);
-	});
-	// Add marker function
-	/* addMarker({coords:{lat:42.4668,lng:-70.9495}});
-	addMarker({coords:{lat:42.8584, lng:-70.9300}});
-	addMarker({coords:{lat:42.7762, lng:-71.0773}});
-	function addMarker(props){
-	var marker=new google.maps.Marker({
-	position :props.coords,
-	map:map,
-	icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-	})
-	}*/
-	}
 	</script>
 	<script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDebAMQ2oe6eiBRR5YWBJqKY5KyQxsSbKc&callback=initMap">

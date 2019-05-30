@@ -25,6 +25,7 @@ class SupplierController extends Controller
 		$minCustomerAge = 0;
 		$maxCustomerAge = 0;
 		$coordinates = [];
+		$countProductPerMonth = [];
 
 		$filtredOrders = Order::whereBetween('date', [$from, $to])
 								->whereHas(
@@ -49,7 +50,21 @@ class SupplierController extends Controller
 				'lng' => $order->address->lng,
 				'lat' => $order->address->lat
 			];
+
+			foreach (getYearsMonthsBetweenTwoDates($from, $to) as $date) {
+				if((getPartOfDate($order->date, 0) == $date['y']) && (getPartOfDate($order->date, 1) == $date['m'])) {
+					$ref = getPartOfDate($order->date, 0) . getPartOfDate($order->date, 1);
+					$oldQte = (isset($countProductPerMonth[$ref]['qte'])) ? $countProductPerMonth[$ref]['qte'] : 0;
+					$countProductPerMonth[$date['y'] . $date['m']] = [
+						'y' => $date['y'],
+						'm' => $date['m'],
+						'qte' => $oldQte + $order->countOrdredProducts,
+					];
+				}
+			}
 		}
+
+		dd($countProductPerMonth);
 
 		return view('supplier.index', compact('productCount', 'customerCount', 'minCustomerAge', 'maxCustomerAge', 'coordinates'));
 	}
@@ -72,10 +87,6 @@ class SupplierController extends Controller
 			    }
 		    }
 		}
-		dd($idSumProduct);
 		return view('supplier.index');
 	}
-
-
-
 }

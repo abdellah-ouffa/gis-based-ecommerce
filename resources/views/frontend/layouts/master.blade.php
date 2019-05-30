@@ -38,7 +38,13 @@
         .hide {
             display: none;
         }
-
+        .copyright .footer-logo {
+            margin-bottom: 12px;
+            margin-top: 30px;
+        }
+        .copyright .footer-logo img {
+            max-width: 150px !important;
+        }
     </style>
 
 </head>

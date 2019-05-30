@@ -86,7 +86,7 @@ Route::get('/password/{password}', function ($password) {
 });
 
 Route::get('/test', function () {
-	return view('backend.auth.register');
+	dd(getYearsMonthsBetweenTwoDates('2017-03-01', '2019-05-06'));
 });
 
 Route::get('/delete', function () {

@@ -9,7 +9,6 @@
                                 <img alt="" src="{{ asset('front/assets/img/logo/logo.png') }}">
                             </a>
                         </div>
-                        <p>© 2019 <a href="#">Flone</a>.<br> All Rights Reserved</p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-4">

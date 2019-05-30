@@ -73,3 +73,36 @@
 			return $years;
 		}
 	}
+
+	if(!function_exists('getYearsMonthsBetweenTwoDates')) {
+		function getYearsMonthsBetweenTwoDates($from, $to) {
+			$monthsYears = [];
+			$tmp = $from;
+			$from = $from > $to ? $to : $from;
+			$to = $tmp > $to ? $tmp : $to;
+			$start    = new DateTime($from);
+			$start->modify('first day of this month');
+			$end      = new DateTime($to);
+			$end->modify('first day of next month');
+			$interval = DateInterval::createFromDateString('1 month');
+			$period   = new DatePeriod($start, $interval, $end);
+
+			foreach ($period as $dt) {
+			    $monthsYears[] = [
+			    	'y' => $dt->format("Y"),
+			    	'm' => $dt->format("m")
+			    ];
+			}
+
+			return $monthsYears;
+		}
+	}
+
+	if(!function_exists('getPartOfDate')) {
+		function getPartOfDate($date, $part = 0, $delimiter = '-') {
+			return explode($delimiter, $date)[$part];
+		}
+	}
+
+
+

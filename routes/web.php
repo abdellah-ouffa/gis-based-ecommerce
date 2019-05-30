@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 // Routes for Backend
 // Routes for auth users
@@ -30,7 +19,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'authAdmin'], function () {
 	Route::resource('admin','AdminController');
 });
 
-
 // Routes for auth users (Front)
 Route::group(['middleware' => 'authCustomer'], function () {
 	Route::get('account', 'front\PageController@account')->name('front.account');
@@ -39,6 +27,7 @@ Route::group(['middleware' => 'authCustomer'], function () {
 	Route::patch('update-password', 'front\PageController@updatePassword')->name('front.updatePassword');
 	Route::get('checkout', 'Front\CartController@checkout')->name('cart.checkout');
 });
+
 // Routes for frontend
 Route::get('/', 'Front\PageController@home')->name('front.home');
 Route::get('shop', 'Front\PageController@allProducts')->name('front.allProducts');
@@ -57,11 +46,10 @@ Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
 // Routes for supplier auth
 Route::get('supplier-register', 'Supplier\AuthSupplierController@supplierRegister')->name('supplier.register');
 Route::post('supplier-register', 'Supplier\AuthSupplierController@supplierStoreSupplier')->name('supplier.storeSupplier');
-Route::group(['middleware' => 'authAdmin'], function () {
+Route::group(['middleware' => 'authSupplier'], function () {
 	Route::get('supplier-home', 'Supplier\SupplierController@index')->name('supplier.index');
 	Route::post('filter-products-periode', 'Supplier\SupplierController@filterProductsByperiode')->name('supplier.filterProductsByperiode');
 });
-// Route::post('logout', 'Shared\AuthController@logout')->name('front.logout');
 
 // Routes for manage cart products
 Route::get('cart', 'Front\CartController@index')->name('cart.index');

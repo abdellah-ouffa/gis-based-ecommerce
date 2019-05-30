@@ -10,7 +10,7 @@
                         <a href="#">USD </a>
                     </div>
                     <div class="same-language-currency">
-                        <p>Call Us {{CONTACT_PAGE_PHONE_NUMBER}}</p>
+                        <p>Call Us {{ CONTACT_PAGE_PHONE_NUMBER }}</p>
                     </div>
                 </div>
                 <div class="header-right-wrap">
@@ -49,6 +49,7 @@
                         </form>
                     </div>
                     <a style="margin-left: 37px;" href="{{ route('product.index') }}">Admin area</a>
+                    <a style="margin-left: 37px;" href="{{ route('supplier.index') }}">Supplier area</a>
                 </div>
             </div>
         </div>
@@ -59,7 +60,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-6 col-4">
                     <div class="logo text-center">
                         <a href="index.html">
-                            <img alt="" src="{{ asset('front/assets/img/logo/logo.png') }}">
+                            <img alt="" style="height: 75px;" src="{{ asset('front/assets/img/logo/logo.png') }}">
                         </a>
                     </div>
                 </div>

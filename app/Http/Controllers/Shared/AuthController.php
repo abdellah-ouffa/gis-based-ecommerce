@@ -71,14 +71,17 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            if((Auth::user()->role != 'admin')) {
+            if(Auth::user()->role == 'admin') {
+                return redirect()->route('product.index');
+            } elseif(Auth::user()->role == 'supplier') {
+                return redirect()->route('supplier.index');
+            } else {
                 Auth::logout();
                 return view('backend.auth.login', [
                     'error' => '403 - Unauthorized',
                     'email' => $request->email,
                 ]);
             }
-            return redirect()->route('product.index');
         } else {
             return view('backend.auth.login', [
                 'error' => 'Login or password was incorrect',

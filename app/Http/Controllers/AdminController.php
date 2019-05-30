@@ -82,16 +82,16 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-     $admin = User::findOrFail($id);
-     $admin->first_name = $request->input('first_name');
-     $admin->last_name = $request->input('last_name');
-     $admin->email = $request->input('email');
-     $admin->role = 'admin';
-     $admin->password = bcrypt($request->input('password'));
+        $admin = User::findOrFail($id);
+        $admin->first_name = $request->input('first_name');
+        $admin->last_name = $request->input('last_name');
+        $admin->email = $request->input('email');
+        $admin->role = 'admin';
+        $admin->password = bcrypt($request->input('password'));
 
-     $admin->save();
-     Session::flash('success', 'Admin has beeen updated succesfully');
-     return redirect()->route('admin.index');
+        $admin->save();
+        Session::flash('success', 'Admin has beeen updated succesfully');
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -102,9 +102,8 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-     $admin=User::findOrFail($id)->delete();
-     Session::flash('success', 'admin deleted succesfully');
-     return redirect()->route('admin.index');
-
+        $admin=User::findOrFail($id)->delete();
+        Session::flash('success', 'admin deleted succesfully');
+        return redirect()->route('admin.index');
     }
 }

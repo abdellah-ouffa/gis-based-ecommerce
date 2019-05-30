@@ -132,7 +132,7 @@
 	<script  src="{{asset('front/assets/API/js/googlemap.js')}}"></script>
 
 	<script>
-		var coordinates = @json($coordinates);
+		var coordinates = @json($coordinates ?? []);
 		function initMap() {
 			var options = {
 				zoom: 2,

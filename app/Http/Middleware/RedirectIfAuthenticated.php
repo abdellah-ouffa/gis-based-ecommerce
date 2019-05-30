@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
             if(Auth::user()->role == "supplier") {
                 dd('test');
             }
-            return redirect('/home');
+            return redirect('/');
         }
 
         return $next($request);

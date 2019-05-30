@@ -44,12 +44,12 @@
                               <td>{{ $product->status }}</td>
                               <td>{{ $product->category->name }}</td>
                               <td>
-                                 <a href=""class="btn btn-info">detail</a>
-                                 <a href="{{url('product/'.$product->id.'/edit')}}" class="btn btn-success">Edit</a>
+                                 <a href="" class="btn btn-info btn-xs">detail</a>
+                                 <a href="{{ url('product/'.$product->id.'/edit') }}" class="btn btn-xs btn-success">Edit</a>
                                  <form data-resource-name="product" class="form-remove" action="{{ route('product.destroy', ['id' => $product->id]) }}" id="form-delete-product-{{ $product->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-remove">Delete</button>
+                                    <button type="button" class="btn btn-danger btn-xs btn-remove">Delete</button>
                                  </form>
                               </td>
                            </tr>

@@ -9,3 +9,7 @@
 .tools .btn {
     margin-top: -7px !important;
 }
+.table-fw-widget tr td:last-child, .table-fw-widget tr th:last-child {
+    padding-right: 5px;
+    min-width: 140px !important;
+}

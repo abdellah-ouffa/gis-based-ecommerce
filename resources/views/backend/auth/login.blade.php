@@ -21,7 +21,7 @@
                 <div class="main-content">
                     <div class="login-container">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><img src="{{ asset('backend/assets/img/logo-full-retina.png') }}" alt="logo" width="150px" height="39px" class="logo-img"><span>Please enter your user information.</span></div>
+                            <div class="panel-heading"><img src="{{ asset('backend/assets/img/logo-full-retina.png') }}" alt="logo" width="150px" height="39px"    class="logo-img"><span>Please enter your user information.</span></div>
                             <div class="panel-body">
                                 <form action="{{ route('backend.authenticate') }}" method="post" class="form-horizontal">
                                     @csrf

@@ -24,7 +24,7 @@
                   <span class="title">List of admins</span>
                </div>
                <div class="panel-body">
-                  <table id="table1" class= "table table-striped table-hover table-fw-widget ">
+                  <table id="table1" class= "table table-striped table-hover table-fw-widget">
                      <thead>
                         <tr>
                            <th>First name</th>

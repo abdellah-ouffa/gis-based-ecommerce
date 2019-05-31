@@ -94,7 +94,7 @@
 					<div class="tools"><span class="icon s7-upload"></span><span class="icon s7-edit"></span><span class="icon s7-close"></span></div><span class="title">Evolution of the product over time</span>
 				</div>
 				<div class="panel-body">
-					<div id="line-chart" style="height: 300px;"></div>
+					<div id="line-chart" style="height: 250px;"></div>
 				</div>
 			</div>
 			<div class="panel panel-default">
@@ -103,20 +103,11 @@
 				</div>
 				<div class="panel-body">
 					<div id="map" style="height: 600px;"></div>
-					{{-- <div id="myfirstchart" style="height: 600px;"></div> --}}
 				</div>
-				<div id="myfirstchart" style="height: 250px;"></div>
 			</div>
 		</div>
 	</div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 @endsection
@@ -134,7 +125,11 @@
 	<script  src="{{asset('front/assets/API/js/googlemap.js')}}"></script>
 
 	<script>
+		// init
 		var coordinates = @json($coordinates ?? []);
+		var countProductPerMonth = @json($countProductPerMonth ?? []);
+
+		// Helpers
 		function initMap() {
 			var options = {
 				zoom: 2,
@@ -143,7 +138,6 @@
 			var map = new google.maps.Map(document.getElementById('map'),options);
 			// Add marker
 			for (var i = 0; i < coordinates.length; i++) {
-				console.log(coordinates[i]['lng']);
 				addMarker({coords: {lat: Number(coordinates[i]['lat']), lng: Number(coordinates[i]['lng'])}});
 			}
 			function addMarker(props){
@@ -151,36 +145,46 @@
 					position: props.coords,
 					map: map
 				})
+				var infoWindow = new google.maps.InfoWindow({
+					content:'<h4>' + coordinates[i]['address'] + '</h4>'
+				});
+				marker.addListener('click', function(){
+					infoWindow.open(map, marker);
+				});
 			}
-			new Morris.Line({
-			  // ID of the element in which to draw the chart.
-			  element: 'myfirstchart',
-			  // Chart data records -- each entry in this array corresponds to a point on
-			  // the chart.
-			  data: [
-			    { year: '2008', value: 20 },
-			    { year: '2009', value: 10 },
-			    { year: '2010', value: 5 },
-			    { year: '2011', value: 5 },
-			    { year: '2012', value: 20 }
-			  ],
-			  // The name of the data record attribute that contains x-values.
-			  xkey: 'year',
-			  // A list of names of data record attributes that contain y-values.
-			  ykeys: ['value'],
-			  // Labels for the ykeys -- will be displayed when you hover over the
-			  // chart.
-			  labels: ['Value']
+		}
+
+		$(document).ready(function() {
+			lineChart();
+
+			$(window).resize(function() {
+				window.lineChart.redraw();
+			});
+		});
+
+		function lineChart() {
+			var data = [];
+			for (var key in countProductPerMonth) {
+		    	if (!countProductPerMonth.hasOwnProperty(key)) continue;
+		    	var item = countProductPerMonth[key];
+		    	data.push({"x": item.m + ' / ' + item.y, "y": item.qte});
+			}
+
+			window.lineChart = Morris.Line({
+				element: 'line-chart',
+				data: data,
+				xkey: 'x',
+				ykeys: ['y'],
+				labels: ['Quantity of ordred product'],
+				lineColors: ['#1e88e5'],
+				lineWidth: '3px',
+				resize: true,
+				redraw: true,
+				parseTime: false
 			});
 		}
 	</script>
 	<script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDebAMQ2oe6eiBRR5YWBJqKY5KyQxsSbKc&callback=initMap">
 	</script>
-
-   	<script>
-   		$(document).ready(function(){
-			App.chartsMorris();
-		});
-   </script>
 @endsection

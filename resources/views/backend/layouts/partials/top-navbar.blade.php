@@ -5,7 +5,7 @@
             </div><a href="#" class="am-toggle-right-sidebar"><span class="icon s7-menu2"></span></a><a href="#" data-toggle="collapse" data-target="#am-navbar-collapse" class="am-toggle-top-header-menu collapsed"><span class="icon s7-angle-down"></span></a>
             <div id="am-navbar-collapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav am-user-nav">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="assets/img/avatar.jpg"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{asset('backend/assets/img/GIS-logo.jpg')}}"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
                         <li><a href="#"> <span class="icon s7-config"></span>Settings</a></li>
@@ -28,7 +28,7 @@
                     <li><a href="#">UI Consulting</a></li>
                     <li><a href="#">Web Development</a></li>
                     <li><a href="#">Database Management</a></li>
-                    <li><a href="#">Seo Improvement</a></li>
+                    <li><a href="https://seopoz.com/">Seo Improvement</a></li>
                 </ul>
             </li>
             <li><a href="#">Support</a></li>
@@ -98,7 +98,7 @@
                                                 <div class="content">
                                                     <ul>
                                                         <li>
-                                                            <div class="logo"><img src="assets/img/github.png"></div>
+                                                            <div class="logo"><img src="{{asset('backend/assets/img/github.png')}}"></div>
                                                             <div class="field"><span>GitHub</span>
                                                             <div class="switch-container">
                                                                 <div class="switch-button switch-button-sm">
@@ -109,7 +109,7 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div class="logo"><img src="assets/img/bitbucket.png"></div>
+                                                        <div class="logo"><img src="{{asset('backend/assets/img/bitbucket.png')}}"></div>
                                                         <div class="field"><span>Bitbucket</span>
                                                         <div class="switch-container">
                                                             <div class="switch-button switch-button-sm">
@@ -120,7 +120,7 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="logo"><img src="assets/img/slack.png"></div>
+                                                    <div class="logo"><img src="{{asset('backend/assets/img/slack.png')}}"></div>
                                                     <div class="field"><span>Slack</span>
                                                     <div class="switch-container">
                                                         <div class="switch-button switch-button-sm">
@@ -131,7 +131,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="logo"><img src="assets/img/dribbble.png"></div>
+                                                <div class="logo"><img src="{{asset('backend/assets/img/dribbble.png')}}"></div>
                                                 <div class="field"><span>Dribbble</span>
                                                 <div class="switch-container">
                                                     <div class="switch-button switch-button-sm">

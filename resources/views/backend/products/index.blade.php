@@ -45,7 +45,7 @@
                               <td>{{ $product->category->name }}</td>
                               <td>
                                  <a href="" class="btn btn-info btn-xs">detail</a>
-                                 <a href="{{ url('product/'.$product->id.'/edit') }}" class="btn btn-xs btn-success">Edit</a>
+                                 <a href="{{ url('admin/product/'.$product->id.'/edit') }}" class="btn btn-xs btn-success">Edit</a>
                                  <form data-resource-name="product" class="form-remove" action="{{ route('product.destroy', ['id' => $product->id]) }}" id="form-delete-product-{{ $product->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')

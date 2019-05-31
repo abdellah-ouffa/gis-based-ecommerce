@@ -24,13 +24,11 @@ class OrderController extends Controller
         $customer = Customer::where('user_id', auth()->id())->firstOrFail();
         $products = Cart::content();
         
-        
         if($request->add_new_address_is_active) {
             $address = $customer->addresses()->create([
                 'address' => $request->address_name . ' ' .  $request->zipcode . ' ' .  $request->city . ' ' .  $request->country, 
                 'lng' => $request->longitude, 
                 'lat' => $request->latitude,
-                
             ]);
         } else {
             $address = $request->address;

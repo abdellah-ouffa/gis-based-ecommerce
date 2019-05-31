@@ -7,7 +7,7 @@
         <div id="am-navbar-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav am-user-nav">
                 <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="assets/img/avatar.jpg"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
+                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{asset('backend/assets/img/GIS-logo.jpg')}}"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
                         <li>

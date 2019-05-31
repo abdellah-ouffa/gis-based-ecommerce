@@ -31,11 +31,13 @@
                                     <li><a href="{{ route('front.login') }}">Login</a></li>
                                     <li><a href="{{ route('front.register') }}">Register</a></li>
                                 @else
-                                    <li><a href="{{ route('front.account') }}">My account</a></li>
-                                    <li><a href="{{ route('front.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
-                                    <form id="logout-form" action="{{ route('front.logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                                    @if(auth()->user()->role == 'customer')
+                                        <li><a href="{{ route('front.account') }}">My account</a></li>
+                                        <li><a href="{{ route('front.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                                        <form id="logout-form" action="{{ route('front.logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endif
                                 @endguest
                             </ul>
                         </div>
@@ -49,7 +51,12 @@
                         </form>
                     </div>
                     <a style="margin-left: 37px;" href="{{ route('product.index') }}">Admin area</a>
-                    <a style="margin-left: 37px;" href="{{ route('supplier.index') }}">Supplier area</a>
+                    @guest
+                        <a style="margin-left: 37px;" href="{{ route('supplier.register') }}">Register Supplier</a>
+                        <a style="margin-left: 37px;" href="{{ route('backend.login') }}">Login Supplier</a>
+                    @else
+                        <a style="margin-left: 37px;" href="{{ route('supplier.index') }}">Supplier area</a>
+                    @endguest
                 </div>
             </div>
         </div>

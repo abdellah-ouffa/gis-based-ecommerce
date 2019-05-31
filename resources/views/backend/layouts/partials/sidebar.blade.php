@@ -6,10 +6,10 @@
                 <a href="#"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="index.html">Customer area</a>
+                        <a href="{{ route('admin.create') }}">Add new admin</a>
                     </li>
                     <li>
-                        <a href="dashboard2.html">Products</a>
+                        <a href="{{ route('customer.create') }}">Add new customer</a>
                     </li>
                 </ul>
             </li>

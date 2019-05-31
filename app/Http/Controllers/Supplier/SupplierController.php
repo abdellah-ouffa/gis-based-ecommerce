@@ -48,7 +48,8 @@ class SupplierController extends Controller
 			// Get coordinates for each adresses
 			$coordinates[] = [
 				'lng' => $order->address->lng,
-				'lat' => $order->address->lat
+				'lat' => $order->address->lat,
+				'address' => $order->address->address,
 			];
 
 			foreach (getYearsMonthsBetweenTwoDates($from, $to) as $date) {
@@ -64,9 +65,7 @@ class SupplierController extends Controller
 			}
 		}
 
-		dd($countProductPerMonth);
-
-		return view('supplier.index', compact('productCount', 'customerCount', 'minCustomerAge', 'maxCustomerAge', 'coordinates'));
+		return view('supplier.index', compact('productCount', 'customerCount', 'minCustomerAge', 'maxCustomerAge', 'coordinates', 'countProductPerMonth'));
 	}
 
 	public function filterProductsByperiodeOld(Request $request)
